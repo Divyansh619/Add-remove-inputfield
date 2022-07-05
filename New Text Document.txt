@@ -1,0 +1,51 @@
+import React, { useState } from 'react'
+
+const App = () => {
+  const [inputBox, setInputBox] = useState([
+    {
+      name: 'peter',
+      show: 'familyguy'
+    }
+  ])
+  const addMore = (e) => {
+    setInputBox(s => {
+      return [...s, e.target.value
+      ];
+    });
+  };
+  const Remove = (index) => {
+    const rows = [...inputBox];
+    rows.splice(index, 1);
+    setInputBox(rows);
+  }
+  const handleChange = (index, event) => {
+    const { name, value } = event.target;
+    const list = [...inputBox];
+    list[index][name] = value;
+    setInputBox(list);
+  }
+  const submit = (e) => {
+    e.preventDefault();
+  }
+  return (
+    <>
+
+      <button onClick={(e) => addMore(e)}>+</button>
+      <button onClick={Remove} >-</button>
+      {inputBox.map((input, index) => {
+        return (
+          <input
+            name='name'
+            value={input.name}
+            onChange={(event) => handleChange(index, event)}
+
+          />
+
+        )
+      })}
+      <button onClick={submit}>submit</button>
+    </>
+  )
+}
+
+export default App
